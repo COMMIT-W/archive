@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Portal</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Kanit', 'Segoe UI', Tahoma, sans-serif; }
         :root {
             --primary:      #2563eb;
             --header-bg:    #0f172a;
@@ -16,45 +16,38 @@
         }
         body { background: #f3f4f6; color: var(--body-text); }
         .hidden { display: none!important; }
-
-        /* ── Login ── */
         .login-container { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
         .login-box { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
         .logo { max-height: 60px; margin-bottom: 20px; }
         .login-box h2 { margin-bottom: 8px; color: var(--body-text); }
         .login-box .step-label { font-size: 12px; color: #6b7280; margin-bottom: 20px; }
-        .login-box input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 15px; color: var(--body-text); }
+        .login-box input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 15px; }
         .login-box input[readonly] { background: #f3f4f6; color: #374151; cursor: default; }
         .btn { width: 100%; padding: 12px; background: var(--btn-bg); color: var(--btn-text); border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
-        .btn:hover { opacity: 0.88; }
+        .btn:hover { opacity: 0.9; }
         .error { color: #dc2626; margin-top: 10px; font-size: 14px; }
-
-        /* ── Header ── */
         header { background: var(--header-bg); color: var(--header-text); padding: 15px 30px; display: flex; align-items: center; justify-content: space-between; }
         header .logo { max-height: 40px; margin: 0; }
-        header h3 { color: var(--header-text); }
-        .logout { background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 14px; color: var(--header-text); }
-        .user-badge { background: rgba(255,255,255,0.15); padding: 6px 14px; border-radius: 6px; font-size: 13px; color: var(--header-text); }
-
-        /* ── Dashboard ── */
+        .logout { background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 14px; }
+        .user-badge { background: rgba(255,255,255,0.15); padding: 6px 14px; border-radius: 6px; font-size: 13px; }
         .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
         .controls { background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; display: flex; gap: 15px; flex-wrap: wrap; align-items: end; }
         .controls .field { display: flex; flex-direction: column; gap: 5px; }
         .controls label { font-size: 13px; color: #6b7280; font-weight: 500; }
-        .controls input { padding: 10px; border: 1px solid #d1d5db; border-radius: 8px; min-width: 160px; color: var(--body-text); }
+        .controls input { padding: 10px; border: 1px solid #d1d5db; border-radius: 8px; min-width: 160px; }
         .file-count { background: var(--btn-bg); color: var(--btn-text); padding: 10px 20px; border-radius: 8px; font-weight: bold; height: fit-content; }
         .reset-btn { padding: 10px 16px; background: #6b7280; color: white; border: none; border-radius: 8px; cursor: pointer; height: fit-content; }
         table { width: 100%; background: white; border-radius: 12px; overflow: hidden; border-collapse: collapse; }
-        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #e5e7eb; color: var(--body-text); }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #e5e7eb; }
         th { background: #f9fafb; font-weight: 600; }
         .action-btn { padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 14px; margin-right: 8px; display: inline-block; }
-        .preview  { background: var(--btn-bg); color: var(--btn-text); }
+        .preview  { background: #3b82f6; color: white; }
         .download { background: #10b981; color: white; }
-        footer { background: var(--header-bg); color: var(--header-text); text-align: center; padding: 20px; margin-top: 50px; opacity: 0.92; }
+        footer { background: var(--header-bg); color: var(--header-text); text-align: center; padding: 20px; margin-top: 50px; }
         .empty-state { text-align: center; padding: 60px 20px; color: #9ca3af; }
         .loading { text-align: center; padding: 40px; color: #6b7280; font-size: 15px; }
 
-        /* ── Mobile ── */
+        /* ── Mobile Responsive ── */
         @media (max-width: 600px) {
             .login-box { padding: 28px 20px; }
             header { padding: 12px 16px; flex-wrap: wrap; gap: 8px; }
@@ -72,6 +65,9 @@
             th:nth-child(2), td:nth-child(2) { display: none; }
         }
     </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -94,7 +90,7 @@
     <div class="login-box">
         <img id="loginLogo2" class="logo" src="" alt="Logo">
         <h2 id="loginHeader2"></h2>
-        <p class="step-label">Enter your ID to view your files</p>
+        <p class="step-label">Login to view your files</p>
         <input type="text" id="endUserId" placeholder="" readonly>
         <button class="btn" onclick="euLogin()">Login</button>
         <div id="euError" class="error hidden">No files found for this ID</div>
@@ -162,10 +158,14 @@ const CONFIG = {
     "COLOR_BTN_BG": "#800000",
     "COLOR_BTN_TEXT": "#ffffff",
     "COLOR_BODY_TEXT": "#800000",
+    "FONT_NAME": "Kanit",
     "FILES": []
 };
+// LOGIN_MODE:
+//   "direct"   → open dashboard immediately
+//   "id"       → show ID login (ID comes from QR URL, readonly)
+//   "password" → show username/password login
 
-// ── Apply colors from CONFIG ──────────────────────────────────────────
 (function applyColors() {
     const r = document.documentElement.style;
     r.setProperty('--header-bg',   CONFIG.COLOR_HEADER_BG   || '#0f172a');
@@ -174,28 +174,26 @@ const CONFIG = {
     r.setProperty('--btn-text',    CONFIG.COLOR_BTN_TEXT    || '#ffffff');
     r.setProperty('--body-text',   CONFIG.COLOR_BODY_TEXT   || '#111827');
 })();
-
-['loginLogo1','loginLogo2','dashLogo'].forEach(id => {
-    const el = document.getElementById(id);
-    if (CONFIG.LOGO_URL) { el.src = CONFIG.LOGO_URL; el.style.display=''; }
-    else el.style.display = 'none';
-});
-['loginHeader1','loginHeader2','dashHeader'].forEach(id =>
-    document.getElementById(id).innerText = CONFIG.HEADER_TEXT);
-['loginFooter1','loginFooter2'].forEach(id =>
-    document.getElementById(id).innerText = CONFIG.FOOTER_TEXT);
+['loginLogo1','loginLogo2','dashLogo'].forEach(id => document.getElementById(id).src = CONFIG.LOGO_URL);
+['loginHeader1','loginHeader2','dashHeader'].forEach(id => document.getElementById(id).innerText = CONFIG.HEADER_TEXT);
+['loginFooter1','loginFooter2'].forEach(id => document.getElementById(id).innerText = CONFIG.FOOTER_TEXT);
 document.getElementById('dashFooter').innerText = CONFIG.FOOTER_TEXT;
 
+// Read ?user= and ?folder= from URL (QR)
 const _urlParams = new URLSearchParams(window.location.search);
 const _urlId     = _urlParams.get('user')   || '';
 const _urlFolder = _urlParams.get('folder') || '';
 
-(function initMode() {
+// Pre-fill readonly ID field (shows user ID number, not folder ID)
+if (_urlId) document.getElementById('endUserId').value = _urlId;
+
+// ── Startup ──────────────────────────────────────────────────────────────
+(function start() {
     if (CONFIG.LOGIN_MODE === 'direct') {
         showDashboard(_urlId || 'ALL');
     } else if (CONFIG.LOGIN_MODE === 'id') {
         if (_urlId) {
-            document.getElementById('endUserId').value = _urlId;
+            // ID from QR — show ID login page with readonly field
             document.getElementById('euLoginPage').classList.remove('hidden');
         } else {
             showDashboard('ALL');
@@ -205,6 +203,7 @@ const _urlFolder = _urlParams.get('folder') || '';
     }
 })();
 
+// ── Branch Login ─────────────────────────────────────────────────────────
 function branchLogin() {
     const user = document.getElementById('branchUser').value.trim();
     const pass = document.getElementById('branchPass').value;
@@ -217,6 +216,7 @@ function branchLogin() {
     }
 }
 
+// ── EU Login ─────────────────────────────────────────────────────────────
 function euLogin() {
     const id = document.getElementById('endUserId').value.trim();
     if (!id) return;
@@ -224,6 +224,7 @@ function euLogin() {
     showDashboard(id);
 }
 
+// ── Dashboard ─────────────────────────────────────────────────────────────
 function showDashboard(userId) {
     document.getElementById('dashboard').classList.remove('hidden');
     document.getElementById('currentUserId').innerText = userId === 'ALL' ? 'All' : userId;
@@ -245,6 +246,7 @@ function logout() {
     }
 }
 
+// ── Load Files ────────────────────────────────────────────────────────────
 function loadFiles(userId) {
     if (CONFIG.FILES && CONFIG.FILES.length > 0) { renderFiles(CONFIG.FILES); return; }
     if (!CONFIG.DRIVE_API_KEY || !CONFIG.DRIVE_FOLDER_ID) {
@@ -254,6 +256,8 @@ function loadFiles(userId) {
     }
     document.getElementById('loadingMsg').classList.remove('hidden');
     document.getElementById('filesTableWrapper').style.display = 'none';
+    const apiKey   = CONFIG.DRIVE_API_KEY;
+    // Use folder from URL param only — never fallback to branch root
     const folderId = _urlFolder;
     if (!folderId) {
         document.getElementById('loadingMsg').classList.add('hidden');
@@ -263,7 +267,7 @@ function loadFiles(userId) {
         document.getElementById('fileCount').innerText = 0;
         return;
     }
-    fetchFilesFromFolder(folderId, CONFIG.DRIVE_API_KEY);
+    fetchFilesFromFolder(folderId, apiKey);
 }
 
 function fetchFilesFromFolder(folderId, apiKey) {
@@ -276,7 +280,7 @@ function fetchFilesFromFolder(folderId, apiKey) {
             const files = (data.files || []).map(f => ({
                 name: f.name, date: f.createdTime ? f.createdTime.split('T')[0] : '',
                 type: mimeLabel(f.mimeType), preview: f.webViewLink || '#',
-                download: f.webContentLink || f.webViewLink || '#'
+                download: `https://drive.google.com/uc?export=download&id=${f.id}`
             }));
             renderFiles(files);
         })
@@ -314,7 +318,7 @@ function renderFiles(files) {
         tbody.innerHTML += `<tr data-date="${file.date}" data-name="${file.name.toLowerCase()}">
             <td>${file.name}</td><td>${file.type||'—'}</td><td>${file.date}</td>
             <td><a href="${file.preview}" class="action-btn preview" target="_blank">View</a></td>
-            <td><a href="${file.download}" class="action-btn download" target="_blank">Download</a></td>
+            <td><a href="${file.download}" class="action-btn download" target="_blank" download>Download</a></td>
         </tr>`;
     });
     document.getElementById('fileCount').innerText = files.length;
@@ -323,28 +327,26 @@ function renderFiles(files) {
 function filterFiles() {
     const text = document.getElementById('searchText').value.toLowerCase();
     const dateFrom = document.getElementById('dateFrom').value;
-    const dateTo   = document.getElementById('dateTo').value;
+    const dateTo = document.getElementById('dateTo').value;
     let count = 0;
     document.querySelectorAll('#filesTable tr').forEach(row => {
-        const name     = row.getAttribute('data-name') || '';
+        const name = row.getAttribute('data-name') || '';
         const fileDate = row.getAttribute('data-date') || '';
-        const ok = (!text || name.includes(text)) &&
-                   (!dateFrom || fileDate >= dateFrom) &&
-                   (!dateTo   || fileDate <= dateTo);
+        const ok = (!text || name.includes(text)) && (!dateFrom || fileDate >= dateFrom) && (!dateTo || fileDate <= dateTo);
         row.style.display = ok ? '' : 'none';
         if (ok) count++;
     });
     document.getElementById('fileCount').innerText = count;
     const empty = document.getElementById('emptyState');
-    if (allFiles.length === 0)     { empty.innerText = 'No files available yet';      empty.classList.remove('hidden'); }
-    else if (count === 0)          { empty.innerText = 'No files match your filters'; empty.classList.remove('hidden'); }
-    else                           { empty.classList.add('hidden'); }
+    if (allFiles.length === 0) { empty.innerText = 'No files available yet'; empty.classList.remove('hidden'); }
+    else if (count === 0) { empty.innerText = 'No files match your filters'; empty.classList.remove('hidden'); }
+    else { empty.classList.add('hidden'); }
 }
 
 function resetFilters() {
     document.getElementById('searchText').value = '';
-    document.getElementById('dateFrom').value   = '';
-    document.getElementById('dateTo').value     = '';
+    document.getElementById('dateFrom').value = '';
+    document.getElementById('dateTo').value = '';
     filterFiles();
 }
 </script>
