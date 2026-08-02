@@ -13,6 +13,10 @@
             --btn-bg:       #2563eb;
             --btn-text:     #ffffff;
             --body-text:    #111827;
+            --whatsapp-btn-bg:   #374151;
+            --whatsapp-btn-text: #ffffff;
+            --call-btn-bg:       #374151;
+            --call-btn-text:     #ffffff;
         }
         body { background: #f3f4f6; color: var(--body-text); }
         .hidden { display: none!important; }
@@ -30,8 +34,9 @@
         header .logo { max-height: 40px; margin: 0; }
         .logout { background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 14px; }
         .comm-btn { padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 6px; }
-        .whatsapp-btn { background: #25D366; color: #ffffff; }
-        .call-btn { background: #2563eb; color: #ffffff; }
+        .comm-btn img { height: 16px; width: 16px; object-fit: contain; }
+        .whatsapp-btn { background: var(--whatsapp-btn-bg); color: var(--whatsapp-btn-text); }
+        .call-btn { background: var(--call-btn-bg); color: var(--call-btn-text); }
         header .logo.clickable { cursor: pointer; }
         .user-badge { background: rgba(255,255,255,0.15); padding: 6px 14px; border-radius: 6px; font-size: 13px; }
         .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
@@ -110,8 +115,8 @@
         <div style="display:flex; align-items:center; gap:10px;">
             <span class="user-badge">ID: <span id="currentUserId"></span></span>
             <div class="logout" onclick="logout()">Logout</div>
-            <div id="whatsappBtn" class="comm-btn whatsapp-btn hidden"><span id="whatsappIcon">💬</span>WhatsApp</div>
-            <div id="callBtn" class="comm-btn call-btn hidden"><span id="callIcon">📞</span>Call</div>
+            <div id="whatsappBtn" class="comm-btn whatsapp-btn hidden"><img id="whatsappIconImg" class="hidden" alt="">WhatsApp</div>
+            <div id="callBtn" class="comm-btn call-btn hidden"><img id="callIconImg" class="hidden" alt="">Call</div>
         </div>
     </header>
     <div class="container">
@@ -164,13 +169,17 @@ const CONFIG = {
     "COLOR_BODY_TEXT": "#111827",
     "FONT_NAME": "",
     "LOGO_LINK_ENABLED": true,
-    "LOGO_LINK": "",
+    "LOGO_LINK": "https://www.facebook.com/login",
     "WHATSAPP_ENABLED": true,
-    "WHATSAPP_NUMBER": "00201007600799",
-    "WHATSAPP_ICON": "💬",
+    "WHATSAPP_NUMBER": "+201007600799",
+    "WHATSAPP_ICON_URL": "",
+    "WHATSAPP_BTN_BG": "#374151",
+    "WHATSAPP_BTN_TEXT": "#1de235",
     "PHONE_ENABLED": true,
-    "PHONE_NUMBER": "00201007600799",
-    "PHONE_ICON": "📞",
+    "PHONE_NUMBER": "+201007600799",
+    "PHONE_ICON_URL": "",
+    "PHONE_BTN_BG": "#374151",
+    "PHONE_BTN_TEXT": "#c5f5fa",
     "FILES": []
 };
 // LOGIN_MODE:
@@ -193,6 +202,8 @@ document.getElementById('dashFooter').innerText = CONFIG.FOOTER_TEXT;
 
 // ── Communication Tools (Logo Link / WhatsApp / Call) ─────────────────────
 (function initCommTools() {
+    const r = document.documentElement.style;
+
     // Logo link — opens on click inside the dashboard
     if (CONFIG.LOGO_LINK_ENABLED && CONFIG.LOGO_LINK) {
         const dashLogo = document.getElementById('dashLogo');
@@ -201,8 +212,14 @@ document.getElementById('dashFooter').innerText = CONFIG.FOOTER_TEXT;
     }
     // WhatsApp button — opens WhatsApp (desktop app or mobile app) with the number
     if (CONFIG.WHATSAPP_ENABLED && CONFIG.WHATSAPP_NUMBER) {
+        r.setProperty('--whatsapp-btn-bg',   CONFIG.WHATSAPP_BTN_BG   || '#374151');
+        r.setProperty('--whatsapp-btn-text', CONFIG.WHATSAPP_BTN_TEXT || '#ffffff');
         const waBtn = document.getElementById('whatsappBtn');
-        document.getElementById('whatsappIcon').innerText = CONFIG.WHATSAPP_ICON || '💬';
+        if (CONFIG.WHATSAPP_ICON_URL) {
+            const img = document.getElementById('whatsappIconImg');
+            img.src = CONFIG.WHATSAPP_ICON_URL;
+            img.classList.remove('hidden');
+        }
         waBtn.classList.remove('hidden');
         waBtn.onclick = () => {
             const num = CONFIG.WHATSAPP_NUMBER.replace(/[^0-9]/g, '');
@@ -211,8 +228,14 @@ document.getElementById('dashFooter').innerText = CONFIG.FOOTER_TEXT;
     }
     // Call button — dials the number directly
     if (CONFIG.PHONE_ENABLED && CONFIG.PHONE_NUMBER) {
+        r.setProperty('--call-btn-bg',   CONFIG.PHONE_BTN_BG   || '#374151');
+        r.setProperty('--call-btn-text', CONFIG.PHONE_BTN_TEXT || '#ffffff');
         const callBtn = document.getElementById('callBtn');
-        document.getElementById('callIcon').innerText = CONFIG.PHONE_ICON || '📞';
+        if (CONFIG.PHONE_ICON_URL) {
+            const img = document.getElementById('callIconImg');
+            img.src = CONFIG.PHONE_ICON_URL;
+            img.classList.remove('hidden');
+        }
         callBtn.classList.remove('hidden');
         callBtn.onclick = () => { window.location.href = `tel:${CONFIG.PHONE_NUMBER}`; };
     }
